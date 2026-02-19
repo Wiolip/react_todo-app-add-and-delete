@@ -10,7 +10,11 @@ export const getTodos = () => {
 // Add more methods here
 // Add new todo
 export const createTodo = (data: { title: string }) => {
-  return client.post<Todo>(`/todos`, { ...data, userId: USER_ID });
+  return client.post<Todo>(`/todos`, {
+    title: data.title,
+    userId: USER_ID,
+    completed: false,
+  });
 };
 
 // Delete todo by id

@@ -39,10 +39,6 @@ export const App: React.FC = () => {
     focusField();
   }, []);
 
-  if (!USER_ID) {
-    return <UserWarning />;
-  }
-
   const handleAdd = async (title: string): Promise<boolean> => {
     const trimmedTitle = title.trim();
 
@@ -96,6 +92,7 @@ export const App: React.FC = () => {
 
     // Wykonujemy wszystkie usunięcia równolegle
     await Promise.allSettled(completedTodos.map(todo => handleDelete(todo.id)));
+    focusField();
   };
 
   // Filtrowanie todos
@@ -105,6 +102,10 @@ export const App: React.FC = () => {
       : filter === FILTERS.active
         ? todos.filter(t => !t.completed)
         : todos.filter(t => t.completed);
+
+  if (!USER_ID) {
+    return <UserWarning />;
+  }
 
   return (
     <div className="todoapp">
